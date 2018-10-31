@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,10 +16,11 @@ class ProcessorImplTest {
 
         List<String> listToTest = new ArrayList<>();
         listToTest.add("\"Test\"");
+        Iterator iterator = listToTest.iterator();
         ProcessorImpl processor = new ProcessorImpl();
 
         try {
-            processor.process(listToTest);
+            processor.process(iterator);
         } catch (IOException e) {
             fail("shouldn't get here");
         }
@@ -31,10 +33,11 @@ class ProcessorImplTest {
 
         List<String> listToTest = new ArrayList<>();
         listToTest.add("100.55");
+        Iterator iterator = listToTest.iterator();
         ProcessorImpl processor = new ProcessorImpl();
 
         try {
-            processor.process(listToTest);
+            processor.process(iterator);
         } catch (IOException e) {
             fail("shouldn't get here");
         }
@@ -47,10 +50,11 @@ class ProcessorImplTest {
 
         List<String> listToTest = new ArrayList<>();
         listToTest.add("true");
+        Iterator iterator = listToTest.iterator();
         ProcessorImpl processor = new ProcessorImpl();
 
         try {
-            processor.process(listToTest);
+            processor.process(iterator);
         } catch (IOException e) {
             fail("shouldn't get here");
         }
@@ -63,10 +67,11 @@ class ProcessorImplTest {
 
         List<String> listToTest = new ArrayList<>();
         listToTest.add(null);
+        Iterator iterator = listToTest.iterator();
         ProcessorImpl processor = new ProcessorImpl();
 
         try {
-            processor.process(listToTest);
+            processor.process(iterator);
         } catch (IOException e) {
             fail("shouldn't get here");
         }
@@ -79,10 +84,11 @@ class ProcessorImplTest {
 
         List<String> listToTest = new ArrayList<>();
         listToTest.add("wrong");
+        Iterator iterator = listToTest.iterator();
         ProcessorImpl processor = new ProcessorImpl();
 
         try {
-            processor.process(listToTest);
+            processor.process(iterator);
             fail("shouldn't get here");
         } catch (IOException e) {
             assertEquals("Not a valid type wrong", e.getMessage());

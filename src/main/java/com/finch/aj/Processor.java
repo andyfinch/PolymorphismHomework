@@ -1,8 +1,9 @@
 package com.finch.aj;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 public interface Processor {
 
-    void process(Iterable<String> it) throws IOException;
+    void process(Iterator<String> it) throws IOException;
 }

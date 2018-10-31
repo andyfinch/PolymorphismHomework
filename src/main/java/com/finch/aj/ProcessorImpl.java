@@ -1,17 +1,19 @@
 package com.finch.aj;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 public class ProcessorImpl implements Processor, Describe {
 
     private DescribeCollection describeCollection = new DescribeCollection();
 
     @Override
-    public void process(Iterable<String> it) throws IOException {
+    public void process(Iterator<String> it) throws IOException {
 
 
-
-        for (String s : it) {
+        while (it.hasNext()) {
+            String s =  it.next();
 
             if ( s == null)
             {
@@ -37,10 +39,8 @@ public class ProcessorImpl implements Processor, Describe {
             {
                 throw new IOException("Not a valid type " + s);
             }
-
-
-
         }
+
     }
 
     public String describe()
