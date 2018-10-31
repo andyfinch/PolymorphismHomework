@@ -29,7 +29,7 @@ public class DescribeCollection implements Describe {
 
     public boolean addToCollection(Describe describe)
     {
-        this.describeList.add(describe);
+        return this.describeList.add(describe);
     }
 
     public List<Describe> getDescribeList() {

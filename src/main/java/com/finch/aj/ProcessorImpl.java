@@ -2,9 +2,9 @@ package com.finch.aj;
 
 import java.io.IOException;
 
-public class ProcessorImpl implements Processor {
+public class ProcessorImpl implements Processor, Describe {
 
-    DescribeCollection describeCollection = new DescribeCollection();
+    private DescribeCollection describeCollection = new DescribeCollection();
 
     @Override
     public void process(Iterable<String> it) throws IOException {
@@ -35,12 +35,17 @@ public class ProcessorImpl implements Processor {
             }
             else
             {
-                throw new IOException("Not a valid type");
+                throw new IOException("Not a valid type " + s);
             }
 
 
 
         }
+    }
+
+    public String describe()
+    {
+        return describeCollection.describe();
     }
 
     private boolean isNumeric(String stringToTest)
@@ -56,12 +61,19 @@ public class ProcessorImpl implements Processor {
 
     private boolean isBoolean(String stringToTest)
     {
-        try {
-            Boolean.parseBoolean(stringToTest);
-        } catch (Exception e) {
-            return false;
+        if ( "true".equalsIgnoreCase(stringToTest) || "false".equalsIgnoreCase(stringToTest))
+        {
+            return true;
         }
 
-        return true;
+        return false;
+    }
+
+    public DescribeCollection getDescribeCollection() {
+        return describeCollection;
+    }
+
+    public void setDescribeCollection(DescribeCollection describeCollection) {
+        this.describeCollection = describeCollection;
     }
 }
