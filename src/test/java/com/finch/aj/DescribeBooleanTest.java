@@ -14,4 +14,12 @@ class DescribeBooleanTest {
 
     }
 
+    @Test
+    void TestBooleanFalse() {
+
+        Describe describeBoolean = new DescribeBoolean(false);
+        assertEquals("false", describeBoolean.describe());
+
+    }
+
 }

@@ -16,7 +16,7 @@ class ProcessorImplTest {
 
         List<String> listToTest = new ArrayList<>();
         listToTest.add("\"Test\"");
-        Iterator iterator = listToTest.iterator();
+        Iterator<String>iterator = listToTest.iterator();
         ProcessorImpl processor = new ProcessorImpl();
 
         try {
@@ -25,7 +25,7 @@ class ProcessorImplTest {
             fail("shouldn't get here");
         }
 
-        assertEquals("[\"Test\"]", processor.getDescribeCollection().describe());
+        assertEquals("[\"Test\"]", processor.describe());
     }
 
     @Test
@@ -33,7 +33,7 @@ class ProcessorImplTest {
 
         List<String> listToTest = new ArrayList<>();
         listToTest.add("100.55");
-        Iterator iterator = listToTest.iterator();
+        Iterator<String> iterator = listToTest.iterator();
         ProcessorImpl processor = new ProcessorImpl();
 
         try {
@@ -42,7 +42,7 @@ class ProcessorImplTest {
             fail("shouldn't get here");
         }
 
-        assertEquals("[100.55]", processor.getDescribeCollection().describe());
+        assertEquals("[100.55]", processor.describe());
     }
 
     @Test
@@ -50,7 +50,7 @@ class ProcessorImplTest {
 
         List<String> listToTest = new ArrayList<>();
         listToTest.add("true");
-        Iterator iterator = listToTest.iterator();
+        Iterator<String> iterator = listToTest.iterator();
         ProcessorImpl processor = new ProcessorImpl();
 
         try {
@@ -59,7 +59,7 @@ class ProcessorImplTest {
             fail("shouldn't get here");
         }
 
-        assertEquals("[true]", processor.getDescribeCollection().describe());
+        assertEquals("[true]", processor.describe());
     }
 
     @Test
@@ -67,7 +67,7 @@ class ProcessorImplTest {
 
         List<String> listToTest = new ArrayList<>();
         listToTest.add(null);
-        Iterator iterator = listToTest.iterator();
+        Iterator<String> iterator = listToTest.iterator();
         ProcessorImpl processor = new ProcessorImpl();
 
         try {
@@ -76,7 +76,29 @@ class ProcessorImplTest {
             fail("shouldn't get here");
         }
 
-        assertEquals("[null]", processor.getDescribeCollection().describe());
+        assertEquals("[null]", processor.describe());
+    }
+
+    @Test
+    void TestProcessorImpl_Multi_Types() {
+
+        List<String> listToTest = new ArrayList<>();
+        listToTest.add("\"Test\"");
+        listToTest.add("100.55");
+        listToTest.add("true");
+        listToTest.add(null);
+        Iterator<String> iterator = listToTest.iterator();
+        ProcessorImpl processor = new ProcessorImpl();
+
+        try
+        {
+            processor.process(iterator);
+        } catch (IOException e)
+        {
+            fail("shouldn't get here");
+        }
+
+        assertEquals("[\"Test\",100.55,true,null]", processor.describe());
     }
 
     @Test
@@ -84,7 +106,7 @@ class ProcessorImplTest {
 
         List<String> listToTest = new ArrayList<>();
         listToTest.add("wrong");
-        Iterator iterator = listToTest.iterator();
+        Iterator<String> iterator = listToTest.iterator();
         ProcessorImpl processor = new ProcessorImpl();
 
         try {
@@ -95,5 +117,81 @@ class ProcessorImplTest {
         }
 
 
+    }
+
+    @Test
+    void TestProcessorImpl_Check_Classe_Type_Number() {
+
+        List<String> listToTest = new ArrayList<>();
+        listToTest.add("100.55");
+        Iterator<String> iterator = listToTest.iterator();
+        ProcessorImpl processor = new ProcessorImpl();
+
+        try
+        {
+            processor.process(iterator);
+        } catch (IOException e)
+        {
+            fail("shouldn't get here");
+        }
+
+        assertTrue(processor.getDescribeCollection().getDescribeList().get(0) instanceof DescribeNumber);
+    }
+
+    @Test
+    void TestProcessorImpl_Check_Classe_Type_Boolean() {
+
+        List<String> listToTest = new ArrayList<>();
+        listToTest.add("true");
+        Iterator<String> iterator = listToTest.iterator();
+        ProcessorImpl processor = new ProcessorImpl();
+
+        try
+        {
+            processor.process(iterator);
+        } catch (IOException e)
+        {
+            fail("shouldn't get here");
+        }
+
+        assertTrue(processor.getDescribeCollection().getDescribeList().get(0) instanceof DescribeBoolean);
+    }
+
+    @Test
+    void TestProcessorImpl_Check_Classe_Type_Text() {
+
+        List<String> listToTest = new ArrayList<>();
+        listToTest.add("\"Test\"");
+        Iterator<String> iterator = listToTest.iterator();
+        ProcessorImpl processor = new ProcessorImpl();
+
+        try
+        {
+            processor.process(iterator);
+        } catch (IOException e)
+        {
+            fail("shouldn't get here");
+        }
+
+        assertTrue(processor.getDescribeCollection().getDescribeList().get(0) instanceof DescribeText);
+    }
+
+    @Test
+    void TestProcessorImpl_Check_Classe_Type_Null() {
+
+        List<String> listToTest = new ArrayList<>();
+        listToTest.add(null);
+        Iterator<String> iterator = listToTest.iterator();
+        ProcessorImpl processor = new ProcessorImpl();
+
+        try
+        {
+            processor.process(iterator);
+        } catch (IOException e)
+        {
+            fail("shouldn't get here");
+        }
+
+        assertTrue(processor.getDescribeCollection().getDescribeList().get(0) instanceof DescribeNull);
     }
 }
