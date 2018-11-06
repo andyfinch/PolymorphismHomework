@@ -104,3 +104,16 @@ public class ProcessorImpl implements Processor, Describe {
 
     
 }
+
+class MyIt implements Iterator<String>
+{
+    @Override
+    public boolean hasNext() {
+        return false;
+    }
+
+    @Override
+    public String next() {
+        return null;
+    }
+}

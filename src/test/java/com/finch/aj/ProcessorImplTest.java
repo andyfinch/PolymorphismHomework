@@ -194,4 +194,38 @@ class ProcessorImplTest {
 
         assertTrue(processor.getDescribeCollection().getDescribeList().get(0) instanceof DescribeNull);
     }
+
+    @Test
+    void TestProcessorImpl_Stub_Text() {
+
+       
+        ProcessorImpl processor = new ProcessorImpl();
+
+        try
+        {
+            processor.process(new StubIterator("\"Test\""));
+        } catch (IOException e)
+        {
+            fail("shouldn't get here");
+        }
+
+        assertEquals("[\"Test\"]", processor.describe());
+    }
+
+    @Test
+    void TestProcessorImpl_Stub_Boolean() {
+
+
+        ProcessorImpl processor = new ProcessorImpl();
+
+        try
+        {
+            processor.process(new StubIterator("true"));
+        } catch (IOException e)
+        {
+            fail("shouldn't get here");
+        }
+
+        assertEquals("[true]", processor.describe());
+    }
 }
